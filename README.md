@@ -1,7 +1,9 @@
 # Frontend-django-ember-showcase
 
-This README outlines the details of collaborating on this Ember application.
-A short introduction of this app could easily go here.
+This is a simple Ember application which talks with a JSON API compatible backend.
+The application has been generated with ember-cli. The deployment process has been slightly customized to be embedded in a Django backend.
+
+The related backend project can be found [here](https://github.com/gonvaled/backend-django-ember-showcase)
 
 ## Prerequisites
 
@@ -25,10 +27,6 @@ You will need the following things properly installed on your computer.
 * `ember server`
 * Visit your app at [http://localhost:4200](http://localhost:4200).
 
-### Code Generators
-
-Make use of the many generators for code, try `ember help generate` for more details
-
 ### Running Tests
 
 * `ember test`
@@ -37,11 +35,17 @@ Make use of the many generators for code, try `ember help generate` for more det
 ### Building
 
 * `ember build` (development)
+* `ember build --environment dev-django` (to embed development build into Django)
 * `ember build --environment production` (production)
 
 ### Deploying
 
-Specify what it takes to deploy your app.
+The application is intended to be embedded into a Django backend. The following steps must be performed
+
+* `ember build --environment dev-django` or `ember build --environment production`
+* `cp -rT FE_TOP_DIR/dist DJ_TOP_DIR/static/ember-app`, where `FE_TOP_DIR` is the frontend (this application) top directory, and `DJ_TOP_DIR` is the backend top directory
+* `python manage.py collectstatic --noinput`, which will collect static assets so that Django can serve the Ember application
+* `python manage.py runserver`
 
 ## Further Reading / Useful Links
 
@@ -51,3 +55,8 @@ Specify what it takes to deploy your app.
   * [ember inspector for chrome](https://chrome.google.com/webstore/detail/ember-inspector/bmdblncegkenkacieihfhpjfppoconhi)
   * [ember inspector for firefox](https://addons.mozilla.org/en-US/firefox/addon/ember-inspector/)
 
+## Legal
+
+[Daniel Gonzalez](http://gonvaled.com) &copy; 2016
+
+[Licensed under the MIT license](http://www.opensource.org/licenses/mit-license.php)
