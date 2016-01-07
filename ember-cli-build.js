@@ -2,22 +2,13 @@
 /* global require, module */
 var EmberApp = require('ember-cli/lib/broccoli/ember-app');
 
-// TODO: how to access the deploy environment? Currently I am passing an extra enviornment variable
-var environment = process.env.environment;
-if (environment === 'development') {
-  var STATIC_URL = 'static/ember-app/';
-} else if (environment === 'production') {
-  var STATIC_URL = 'static/ember-app/';
-} else {
-  // We need an empty STATIC_URL when running ember serve
-  var STATIC_URL = '';
-}
-
 module.exports = function(defaults) {
+  // See here: http://discuss.emberjs.com/t/access-env-at-build-time-as-opposed-to-runtime/9391/10?u=gonvaled
+  var config = defaults.project.config(process.env.EMBER_ENV || 'development');
   var app = new EmberApp(defaults, {
     fingerprint: {
-      enabled: true,
-      prepend: STATIC_URL,
+      enabled: config.environment === 'dev-django' || config.environment === 'production',
+      prepend: config.STATIC_URL,
     },
   });
 

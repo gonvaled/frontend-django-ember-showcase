@@ -1,6 +1,12 @@
 /* jshint node: true */
 
 module.exports = function(environment) {
+
+  // I define an extra environment target:
+  // - development: normal development with ember-serve
+  // - dev-django: development Ember SPA embedded in django app
+  // - production: production Ember SPA embedded in django app
+
   var ENV = {
     modulePrefix: 'frontend-django-ember-showcase',
     environment: environment,
@@ -19,7 +25,7 @@ module.exports = function(environment) {
     }
   };
 
-  if (environment === 'development') {
+  if (environment === 'development' || environment === 'dev-django') {
     // ENV.APP.LOG_RESOLVER = true;
     // ENV.APP.LOG_ACTIVE_GENERATION = true;
     // ENV.APP.LOG_TRANSITIONS = true;
@@ -39,9 +45,16 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'production') {
-
+  if (environment === 'development') {
+    // We need an empty STATIC_URL when running ember serve
+    var STATIC_URL = '';
+  } else if (environment === 'dev-django') {
+    var STATIC_URL = 'static/ember-app/';
+  } else if (environment === 'production') {
+    var STATIC_URL = 'static/ember-app/';
   }
+
+  ENV.STATIC_URL = STATIC_URL;
 
   return ENV;
 };
