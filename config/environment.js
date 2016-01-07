@@ -31,6 +31,7 @@ module.exports = function(environment) {
     // ENV.APP.LOG_TRANSITIONS = true;
     // ENV.APP.LOG_TRANSITIONS_INTERNAL = true;
     // ENV.APP.LOG_VIEW_LOOKUPS = true;
+    ENV.API_HOST = process.env.API_HOST_DEV;
   }
 
   if (environment === 'test') {
@@ -46,7 +47,10 @@ module.exports = function(environment) {
   }
 
   if (environment === 'production') {
+    ENV.API_HOST = process.env.API_HOST_PROD;
   }
+
+  ENV.API_NAMESPACE = 'api';
 
   // Setup STATIC_URL (the only setting which has a different value for environment dev-django)
   if (environment === 'development') {

@@ -42,6 +42,13 @@ You will need the following things properly installed on your computer.
 
 The application is intended to be embedded into a Django backend. The following steps must be performed
 
+Setup your environment:
+
+```
+export API_HOST_DEV="http://localhost:8080"
+export API_HOST_PROD="http://api-server.example.com"
+```
+
 * `ember build --environment dev-django` or `ember build --environment production`
 * `cp -rT FE_TOP_DIR/dist DJ_TOP_DIR/static/ember-app`, where `FE_TOP_DIR` is the frontend (this application) top directory, and `DJ_TOP_DIR` is the backend top directory
 * `python manage.py collectstatic --noinput`, which will collect static assets so that Django can serve the Ember application
