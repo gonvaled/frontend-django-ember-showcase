@@ -45,16 +45,18 @@ module.exports = function(environment) {
     ENV.APP.rootElement = '#ember-testing';
   }
 
-  if (environment === 'development') {
-    // We need an empty STATIC_URL when running ember serve
-    var STATIC_URL = '';
-  } else if (environment === 'dev-django') {
-    var STATIC_URL = 'static/ember-app/';
-  } else if (environment === 'production') {
-    var STATIC_URL = 'static/ember-app/';
+  if (environment === 'production') {
   }
 
-  ENV.STATIC_URL = STATIC_URL;
+  // Setup STATIC_URL (the only setting which has a different value for environment dev-django)
+  if (environment === 'development') {
+    // We need an empty STATIC_URL when running ember serve
+    ENV.STATIC_URL = '';
+  } else if (environment === 'dev-django') {
+    ENV.STATIC_URL = 'static/ember-app/';
+  } else if (environment === 'production') {
+    ENV.STATIC_URL = 'static/ember-app/';
+  }
 
   return ENV;
 };
